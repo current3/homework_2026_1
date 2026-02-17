@@ -53,4 +53,34 @@ QUnit.module("Тестируем функцию compressObject", function() {
     const result = compressObject({ a: " ", b: "" });
     assert.deepEqual(result, { a: " " }, "Строка с пробелом не равна пустой строке и должна остаться.");
     });
+
+    QUnit.test("Работает с объектом, где все значения null или пустые", function(assert) {
+    const result = compressObject({ a: null, b: "", c: undefined });
+    assert.deepEqual(result, {}, "Все пустые значения должны быть удалены, результат - пустой объект.");
+    });
+
+    QUnit.test("Не удаляет числовые значения", function(assert) {
+    const result = compressObject({ a: 0, b: -1, c: 42 });
+    assert.deepEqual(result, { a: 0, b: -1, c: 42 }, "Числа не должны быть удалены.");
+    });
+
+    QUnit.test("Не удаляет пустой объект", function(assert) {
+    const result = compressObject({});
+    assert.deepEqual(result, {}, "Пустой объект должен остаться пустым.");
+    });
+
+    QUnit.test("Обрабатывает строки с пробелами и символами", function(assert) {
+    const result = compressObject({
+        text: "Hello World",
+        emptyString: "",
+        textWithSpaces: "   "
+    });
+    assert.deepEqual(result, { text: "Hello World", textWithSpaces: "   " }, "Строки с пробелами или текстом должны быть сохранены.");
+    });
+
+    QUnit.test("Не удаляет пустой массив, если он явно указан", function(assert) {
+    const result = compressObject({ a: [], b: null });
+    assert.deepEqual(result, { a: [] }, "Пустой массив не должен быть удалён.");
+    });
+
 });
