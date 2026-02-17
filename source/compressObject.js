@@ -13,13 +13,11 @@
  * @returns {Object.<string, *>} - новый объект
  */
 const compressObject = (obj) => {
-  const result = {};
-
-  for (const [key, value] of Object.entries(obj)) {
+  return Object.entries(obj).reduce((result, [key, value]) => {
     if (value !== null && value !== undefined && value !== '') {
       result[key] = value;
     }
-  }
 
-  return result;
+    return result;
+  }, {});
 };
