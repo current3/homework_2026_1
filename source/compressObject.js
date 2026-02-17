@@ -4,13 +4,13 @@
  * Удаляет из объекта поля со значениями null, undefined и пустой строкой "".
  * Возвращает новый объект, исходный не изменяет.
  *
- * @param {Record<string, any>} obj - исходный объект
+ * @param {Object.<string, *>} obj - исходный объект
  *
  * @example
  * // returns { a: 1 }
  * compressObject({ a: 1, b: null, c: "" });
  * 
- * @returns {Record<string, any>} - новый объект
+ * @returns {Object.<string, *>} - новый объект
  */
 const compressObject = (obj) => {
   const result = {};
